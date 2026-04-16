@@ -1,5 +1,7 @@
 package casodeestudio.model.Productos;
-
+//Okay y en el caso de este lo hace algo parecido al de cliente, lo único que se le cambiaron los datos y asi etc. Con los for se recorre el array y se establece como una mini 
+//inteffaz que le diga al array de cuanto delimitarse y le va pidiendo los datos de cada producto. Algo a notar es que definitivamente no tiene manejor de errores entonces si 
+//ustedes se equivocan digamos en poner el estado de disponibilidad entre false o true les va a saltar un error en ejecucuión 
 
 
 import java.util.ArrayList;
