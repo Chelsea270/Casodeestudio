@@ -16,7 +16,6 @@ public class Main {
 
         ArrayList<Cliente> clientes = new ArrayList<>();
         ArrayList<Producto> productos = new ArrayList<>();
-        Reporte reporte = new Reporte();
 
         int opcion;
 
@@ -108,15 +107,11 @@ public class Main {
 
                     pago.procesarPago(pedido.calcularTotal());
 
-                    reporte.agregarPedido(pedido);
+                    //reporte
                     break;
 
                 case 4:
-                    reporte.mostrarReporte();
-                    break;
-
-                case 0:
-                    System.out.println("Saliendo...");
+                    //Reporte
                     break;
 
                 default:
