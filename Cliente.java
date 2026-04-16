@@ -1,5 +1,8 @@
 package casodeestudio.model.Clientes;
-
+//Basicamente este cosito lo que hace es que crea un array list para guardar los nombres y datos de los clientes, por que? porque así vi yo que iba a ser
+//más fácil para no hacerla más larga, y ya depúes ah sabes que como compruebo de el cliente esta logeado o pues registrado; entonces por eso tiene el 
+//metodo booleano que le retorna eso pues o sea decirle como, mira este cliente tal esta registrado o no? si no mandame false, básico pues. Pero no se si 
+//le faltara algo mas 
 import java.util.ArrayList;
 import java.util.Scanner;
 
