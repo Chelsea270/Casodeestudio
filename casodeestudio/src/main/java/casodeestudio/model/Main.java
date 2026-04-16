@@ -16,6 +16,7 @@ public class Main {
 
         ArrayList<Cliente> clientes = new ArrayList<>();
         ArrayList<Producto> productos = new ArrayList<>();
+        Reporte reporte = new Reporte();
 
         int opcion;
 
@@ -26,9 +27,7 @@ public class Main {
             System.out.println("3. Crear pedido");
             System.out.println("4. Ver reporte");
             System.out.println("0. Salir");
-            System.out.print("Seleccione una opción: ");
-            opcion = sc.nextInt();
-            sc.nextLine();
+            opcion = leerEntero(sc, "Seleccione una opción: ");
 
             switch (opcion) {
 
@@ -50,12 +49,9 @@ public class Main {
                     System.out.print("Nombre del producto: ");
                     String nomProd = sc.nextLine();
 
-                    System.out.print("Precio: ");
-                    double precio = sc.nextDouble();
+                    double precio = leerDouble(sc, "Precio: ");
 
-                    System.out.print("Disponible (true/false): ");
-                    boolean disponible = sc.nextBoolean();
-                    sc.nextLine();
+                    boolean disponible = leerBoolean(sc, "Disponible (true/false): ");
 
                     productos.add(new Producto(nomProd, precio, disponible));
                     System.out.println("Producto registrado.");
@@ -80,11 +76,12 @@ public class Main {
                         }
 
                         System.out.println("0. Terminar pedido");
-                        System.out.print("Seleccione producto: ");
-                        opProd = sc.nextInt();
+                        opProd = leerEntero(sc, "Seleccione producto: ");
 
                         if (opProd > 0 && opProd <= productos.size()) {
                             pedido.agregarProducto(productos.get(opProd - 1));
+                        } else if (opProd != 0) {
+                            System.out.println("Opción de producto inválida.");
                         }
 
                     } while (opProd != 0);
@@ -95,7 +92,7 @@ public class Main {
                     System.out.println("Método de pago:");
                     System.out.println("1. Efectivo");
                     System.out.println("2. Tarjeta");
-                    int metodo = sc.nextInt();
+                    int metodo = leerEntero(sc, "Seleccione método: ");
 
                     Pago pago;
 
@@ -105,13 +102,16 @@ public class Main {
                         pago = new PagoTarjeta();
                     }
 
-                    pago.procesarPago(pedido.calcularTotal());
-
-                    //reporte
+                    double totalPedido = pedido.calcularTotal();
+                    pago.procesarPago(totalPedido);
+                    reporte.registrarPedido(totalPedido);
                     break;
 
                 case 4:
-                    //Reporte
+                    reporte.mostrarReporte();
+                    break;
+
+                case 0:
                     break;
 
                 default:
@@ -121,5 +121,43 @@ public class Main {
         } while (opcion != 0);
 
         sc.close();
+    }
+
+    private static int leerEntero(Scanner sc, String mensaje) {
+        while (true) {
+            System.out.print(mensaje);
+            String entrada = sc.nextLine();
+            try {
+                return Integer.parseInt(entrada.trim());
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Ingrese un número entero.");
+            }
+        }
+    }
+
+    private static double leerDouble(Scanner sc, String mensaje) {
+        while (true) {
+            System.out.print(mensaje);
+            String entrada = sc.nextLine();
+            try {
+                return Double.parseDouble(entrada.trim());
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Ingrese un número válido.");
+            }
+        }
+    }
+
+    private static boolean leerBoolean(Scanner sc, String mensaje) {
+        while (true) {
+            System.out.print(mensaje);
+            String entrada = sc.nextLine().trim().toLowerCase();
+            if ("true".equals(entrada)) {
+                return true;
+            }
+            if ("false".equals(entrada)) {
+                return false;
+            }
+            System.out.println("Entrada inválida. Escriba true o false.");
+        }
     }
 }
